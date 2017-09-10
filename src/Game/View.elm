@@ -3,11 +3,12 @@ module Game.View exposing (view)
 import Html
 import Html.Attributes as Attribute
 import Html.Events as Event
+import Message exposing (Message)
 import Game.Model exposing (Model)
 import Game.Update as GameUpdate exposing (Action)
 
 
-view : Model -> Html.Html Action
+view : Model -> Html.Html Message
 view model =
     let
         htmlRows =
@@ -16,7 +17,7 @@ view model =
         Html.div [ Attribute.class "game" ] htmlRows
 
 
-viewRow : Int -> Int -> Html.Html Action
+viewRow : Int -> Int -> Html.Html Message
 viewRow row coinsInRow =
     let
         coins =
@@ -28,10 +29,10 @@ viewRow row coinsInRow =
         Html.div [ Attribute.class "row" ] htmlCoins
 
 
-viewCoin : (Int -> Action) -> Int -> Html.Html Action
+viewCoin : (Int -> Action) -> Int -> Html.Html Message
 viewCoin play amount =
     let
         action =
-            play amount
+            Message.Play (play amount)
     in
         Html.div [ Attribute.class "coin", Event.onClick action ] []

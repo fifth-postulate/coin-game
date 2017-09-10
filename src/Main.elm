@@ -4,9 +4,10 @@ import Html
 import Game.Model as GameModel
 import Game.View as GameView
 import Game.Update as GameUpdate
+import Message exposing (Message)
 
 
-main : Program Never Model GameUpdate.Action
+main : Program Never Model Message
 main =
     Html.program
         { init = ( model, Cmd.none )
@@ -29,21 +30,23 @@ model =
     }
 
 
-update : GameUpdate.Action -> Model -> ( Model, Cmd GameUpdate.Action )
-update action model =
-    let
-        result =
-            GameUpdate.update action model.game
-    in
-        case result of
-            Ok nextGame ->
-                noSideEffect { model | game = nextGame, error = Nothing }
+update : Message -> Model -> ( Model, Cmd Message )
+update message model =
+    case message of
+        Message.Play action ->
+            let
+                result =
+                    GameUpdate.update action model.game
+            in
+                case result of
+                    Ok nextGame ->
+                        noSideEffect { model | game = nextGame, error = Nothing }
 
-            Err error ->
-                noSideEffect { model | error = Just error }
+                    Err error ->
+                        noSideEffect { model | error = Just error }
 
 
-noSideEffect : Model -> ( Model, Cmd GameUpdate.Action )
+noSideEffect : Model -> ( Model, Cmd Message )
 noSideEffect model =
     ( model, Cmd.none )
 
