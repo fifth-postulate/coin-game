@@ -8,10 +8,11 @@ import Game.Update as GameUpdate
 
 main : Program Never Model GameUpdate.Action
 main =
-    Html.beginnerProgram
-        { model = model
+    Html.program
+        { init = ( model, Cmd.none )
         , view = .game >> GameView.view
         , update = update
+        , subscriptions = subscriptions
         }
 
 
@@ -28,7 +29,7 @@ model =
     }
 
 
-update : GameUpdate.Action -> Model -> Model
+update : GameUpdate.Action -> Model -> ( Model, Cmd GameUpdate.Action )
 update action model =
     let
         result =
@@ -36,7 +37,17 @@ update action model =
     in
         case result of
             Ok nextGame ->
-                { model | game = nextGame, error = Nothing }
+                noSideEffect { model | game = nextGame, error = Nothing }
 
             Err error ->
-                { model | error = Just error }
+                noSideEffect { model | error = Just error }
+
+
+noSideEffect : Model -> ( Model, Cmd GameUpdate.Action )
+noSideEffect model =
+    ( model, Cmd.none )
+
+
+subscriptions : Model -> Sub msg
+subscriptions _ =
+    Sub.none

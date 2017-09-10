@@ -8400,20 +8400,28 @@ var _fifth_postulate$coin_game$Game_View$view = function (model) {
 		htmlRows);
 };
 
+var _fifth_postulate$coin_game$Main$subscriptions = function (_p0) {
+	return _elm_lang$core$Platform_Sub$none;
+};
+var _fifth_postulate$coin_game$Main$noSideEffect = function (model) {
+	return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+};
 var _fifth_postulate$coin_game$Main$update = F2(
 	function (action, model) {
 		var result = A2(_fifth_postulate$coin_game$Game_Update$update, action, model.game);
-		var _p0 = result;
-		if (_p0.ctor === 'Ok') {
-			return _elm_lang$core$Native_Utils.update(
-				model,
-				{game: _p0._0, error: _elm_lang$core$Maybe$Nothing});
+		var _p1 = result;
+		if (_p1.ctor === 'Ok') {
+			return _fifth_postulate$coin_game$Main$noSideEffect(
+				_elm_lang$core$Native_Utils.update(
+					model,
+					{game: _p1._0, error: _elm_lang$core$Maybe$Nothing}));
 		} else {
-			return _elm_lang$core$Native_Utils.update(
-				model,
-				{
-					error: _elm_lang$core$Maybe$Just(_p0._0)
-				});
+			return _fifth_postulate$coin_game$Main$noSideEffect(
+				_elm_lang$core$Native_Utils.update(
+					model,
+					{
+						error: _elm_lang$core$Maybe$Just(_p1._0)
+					}));
 		}
 	});
 var _fifth_postulate$coin_game$Main$model = {
@@ -8433,16 +8441,17 @@ var _fifth_postulate$coin_game$Main$model = {
 		}),
 	error: _elm_lang$core$Maybe$Nothing
 };
-var _fifth_postulate$coin_game$Main$main = _elm_lang$html$Html$beginnerProgram(
+var _fifth_postulate$coin_game$Main$main = _elm_lang$html$Html$program(
 	{
-		model: _fifth_postulate$coin_game$Main$model,
-		view: function (_p1) {
+		init: {ctor: '_Tuple2', _0: _fifth_postulate$coin_game$Main$model, _1: _elm_lang$core$Platform_Cmd$none},
+		view: function (_p2) {
 			return _fifth_postulate$coin_game$Game_View$view(
 				function (_) {
 					return _.game;
-				}(_p1));
+				}(_p2));
 		},
-		update: _fifth_postulate$coin_game$Main$update
+		update: _fifth_postulate$coin_game$Main$update,
+		subscriptions: _fifth_postulate$coin_game$Main$subscriptions
 	})();
 var _fifth_postulate$coin_game$Main$Model = F2(
 	function (a, b) {
