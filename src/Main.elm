@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Html
-import Game.Model as Game
+import Game.Model as GameModel
 
 
 main : Program Never Model msg
@@ -14,12 +14,12 @@ main =
 
 
 type alias Model =
-    Game.Model
+    GameModel.Model
 
 
 model : Model
 model =
-    Game.create [ 2, 3, 4 ]
+    GameModel.create [ 2, 3, 4 ]
 
 
 view : Model -> Html.Html msg
