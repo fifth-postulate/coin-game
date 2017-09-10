@@ -1,4 +1,4 @@
-module Main exposing (..)
+port module Main exposing (..)
 
 import Html
 import Game.Model as GameModel
@@ -55,6 +55,8 @@ noSideEffect model =
     ( model, Cmd.none )
 
 
-subscriptions : Model -> Sub msg
+port reset : (List Int -> msg) -> Sub msg
+
+subscriptions : Model -> Sub Message
 subscriptions _ =
-    Sub.none
+    reset Message.Reset

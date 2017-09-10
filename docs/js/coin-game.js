@@ -8408,9 +8408,6 @@ var _fifth_postulate$coin_game$Game_View$view = function (model) {
 		htmlRows);
 };
 
-var _fifth_postulate$coin_game$Main$subscriptions = function (_p0) {
-	return _elm_lang$core$Platform_Sub$none;
-};
 var _fifth_postulate$coin_game$Main$noSideEffect = function (model) {
 	return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 };
@@ -8423,27 +8420,33 @@ var _fifth_postulate$coin_game$Main$init = function (coins) {
 };
 var _fifth_postulate$coin_game$Main$update = F2(
 	function (message, model) {
-		var _p1 = message;
-		if (_p1.ctor === 'Play') {
-			var result = A2(_fifth_postulate$coin_game$Game_Update$update, _p1._0, model.game);
-			var _p2 = result;
-			if (_p2.ctor === 'Ok') {
+		var _p0 = message;
+		if (_p0.ctor === 'Play') {
+			var result = A2(_fifth_postulate$coin_game$Game_Update$update, _p0._0, model.game);
+			var _p1 = result;
+			if (_p1.ctor === 'Ok') {
 				return _fifth_postulate$coin_game$Main$noSideEffect(
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{game: _p2._0, error: _elm_lang$core$Maybe$Nothing}));
+						{game: _p1._0, error: _elm_lang$core$Maybe$Nothing}));
 			} else {
 				return _fifth_postulate$coin_game$Main$noSideEffect(
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{
-							error: _elm_lang$core$Maybe$Just(_p2._0)
+							error: _elm_lang$core$Maybe$Just(_p1._0)
 						}));
 			}
 		} else {
-			return _fifth_postulate$coin_game$Main$init(_p1._0);
+			return _fifth_postulate$coin_game$Main$init(_p0._0);
 		}
 	});
+var _fifth_postulate$coin_game$Main$reset = _elm_lang$core$Native_Platform.incomingPort(
+	'reset',
+	_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$int));
+var _fifth_postulate$coin_game$Main$subscriptions = function (_p2) {
+	return _fifth_postulate$coin_game$Main$reset(_fifth_postulate$coin_game$Message$Reset);
+};
 var _fifth_postulate$coin_game$Main$main = _elm_lang$html$Html$program(
 	{
 		init: _fifth_postulate$coin_game$Main$init(
