@@ -8369,11 +8369,7 @@ var _fifth_postulate$coin_game$Game_View$viewCoin = F2(
 					_1: {ctor: '[]'}
 				}
 			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('c'),
-				_1: {ctor: '[]'}
-			});
+			{ctor: '[]'});
 	});
 var _fifth_postulate$coin_game$Game_View$viewRow = F2(
 	function (row, coinsInRow) {

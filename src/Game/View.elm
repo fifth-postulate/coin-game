@@ -34,4 +34,4 @@ viewCoin play amount =
         action =
             play amount
     in
-        Html.div [ Attribute.class "coin", Event.onClick action ] [ Html.text "c" ]
+        Html.div [ Attribute.class "coin", Event.onClick action ] []
