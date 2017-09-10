@@ -6,6 +6,7 @@
     border-bottom-color: black;
     border-bottom-style: solid;
     border-bottom-width: 1px;
+    min-height: 62px;
 }
 
 .row:first-child {
