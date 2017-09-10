@@ -10,7 +10,7 @@ import Message exposing (Message)
 main : Program Never Model Message
 main =
     Html.program
-        { init = ( model, Cmd.none )
+        { init = (init [ 2, 3, 4 ])
         , view = .game >> GameView.view
         , update = update
         , subscriptions = subscriptions
@@ -23,11 +23,12 @@ type alias Model =
     }
 
 
-model : Model
-model =
-    { game = GameModel.create [ 2, 3, 4 ]
-    , error = Nothing
-    }
+init : List Int -> ( Model, Cmd Message )
+init coins =
+    noSideEffect
+        { game = GameModel.create coins
+        , error = Nothing
+        }
 
 
 update : Message -> Model -> ( Model, Cmd Message )
@@ -44,6 +45,9 @@ update message model =
 
                     Err error ->
                         noSideEffect { model | error = Just error }
+
+        Message.Reset coins ->
+            init coins
 
 
 noSideEffect : Model -> ( Model, Cmd Message )

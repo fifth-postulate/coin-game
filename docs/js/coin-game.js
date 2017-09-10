@@ -8355,6 +8355,9 @@ var _fifth_postulate$coin_game$Game_Update$update = F2(
 		}
 	});
 
+var _fifth_postulate$coin_game$Message$Reset = function (a) {
+	return {ctor: 'Reset', _0: a};
+};
 var _fifth_postulate$coin_game$Message$Play = function (a) {
 	return {ctor: 'Play', _0: a};
 };
@@ -8411,45 +8414,52 @@ var _fifth_postulate$coin_game$Main$subscriptions = function (_p0) {
 var _fifth_postulate$coin_game$Main$noSideEffect = function (model) {
 	return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 };
+var _fifth_postulate$coin_game$Main$init = function (coins) {
+	return _fifth_postulate$coin_game$Main$noSideEffect(
+		{
+			game: _fifth_postulate$coin_game$Game_Model$create(coins),
+			error: _elm_lang$core$Maybe$Nothing
+		});
+};
 var _fifth_postulate$coin_game$Main$update = F2(
 	function (message, model) {
 		var _p1 = message;
-		var result = A2(_fifth_postulate$coin_game$Game_Update$update, _p1._0, model.game);
-		var _p2 = result;
-		if (_p2.ctor === 'Ok') {
-			return _fifth_postulate$coin_game$Main$noSideEffect(
-				_elm_lang$core$Native_Utils.update(
-					model,
-					{game: _p2._0, error: _elm_lang$core$Maybe$Nothing}));
+		if (_p1.ctor === 'Play') {
+			var result = A2(_fifth_postulate$coin_game$Game_Update$update, _p1._0, model.game);
+			var _p2 = result;
+			if (_p2.ctor === 'Ok') {
+				return _fifth_postulate$coin_game$Main$noSideEffect(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{game: _p2._0, error: _elm_lang$core$Maybe$Nothing}));
+			} else {
+				return _fifth_postulate$coin_game$Main$noSideEffect(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							error: _elm_lang$core$Maybe$Just(_p2._0)
+						}));
+			}
 		} else {
-			return _fifth_postulate$coin_game$Main$noSideEffect(
-				_elm_lang$core$Native_Utils.update(
-					model,
-					{
-						error: _elm_lang$core$Maybe$Just(_p2._0)
-					}));
+			return _fifth_postulate$coin_game$Main$init(_p1._0);
 		}
 	});
-var _fifth_postulate$coin_game$Main$model = {
-	game: _fifth_postulate$coin_game$Game_Model$create(
-		{
-			ctor: '::',
-			_0: 2,
-			_1: {
-				ctor: '::',
-				_0: 3,
-				_1: {
-					ctor: '::',
-					_0: 4,
-					_1: {ctor: '[]'}
-				}
-			}
-		}),
-	error: _elm_lang$core$Maybe$Nothing
-};
 var _fifth_postulate$coin_game$Main$main = _elm_lang$html$Html$program(
 	{
-		init: {ctor: '_Tuple2', _0: _fifth_postulate$coin_game$Main$model, _1: _elm_lang$core$Platform_Cmd$none},
+		init: _fifth_postulate$coin_game$Main$init(
+			{
+				ctor: '::',
+				_0: 2,
+				_1: {
+					ctor: '::',
+					_0: 3,
+					_1: {
+						ctor: '::',
+						_0: 4,
+						_1: {ctor: '[]'}
+					}
+				}
+			}),
 		view: function (_p3) {
 			return _fifth_postulate$coin_game$Game_View$view(
 				function (_) {
