@@ -5,7 +5,7 @@ import Game.Model as GameModel
 import Game.View as GameView
 
 
-main : Program Never Model msg
+main : Program Never Model GameModel.Action
 main =
     Html.beginnerProgram
         { model = model

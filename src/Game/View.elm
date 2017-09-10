@@ -2,29 +2,35 @@ module Game.View exposing (view)
 
 import Html
 import Html.Attributes as Attribute
-import Game.Model as Model
+import Html.Events as Event
+import Game.Model as GameModel exposing (Model, Action)
 
 
-type alias Model =
-    Model.Model
-
-
-view : Model -> Html.Html msg
+view : Model -> Html.Html Action
 view model =
     let
         htmlRows =
-            List.map viewRow model.rows
+            List.indexedMap viewRow model.rows
     in
         Html.div [ Attribute.class "game" ] htmlRows
 
 
-viewRow : Int -> Html.Html msg
-viewRow coinsInRow =
+viewRow : Int -> Int -> Html.Html Action
+viewRow row coinsInRow =
     let
-        htmlCoin =
-            Html.div [ Attribute.class "coin" ] [ Html.text "c" ]
+        coins =
+            List.range 1 coinsInRow
 
         htmlCoins =
-            List.repeat coinsInRow htmlCoin
+            List.map (viewCoin (GameModel.Play row)) coins
     in
         Html.div [ Attribute.class "row" ] htmlCoins
+
+
+viewCoin : (Int -> Action) -> Int -> Html.Html Action
+viewCoin play amount =
+    let
+        action =
+            play amount
+    in
+        Html.div [ Attribute.class "coin", Event.onClick action ] [ Html.text "c" ]

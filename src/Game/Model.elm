@@ -1,4 +1,4 @@
-module Game.Model exposing (Model, Action, Error, create, update)
+module Game.Model exposing (Model, Action(..), Error, create, update)
 
 
 type Player
@@ -45,7 +45,7 @@ update : Model -> Action -> Result Error Model
 update model action =
     case action of
         Play row coins ->
-            if coins < 0 then
+            if coins <= 0 then
                 Err NonPositiveCoins
             else
                 case model.rows @ row of
