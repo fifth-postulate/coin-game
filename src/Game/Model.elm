@@ -1,4 +1,4 @@
-module Game.Model exposing (Model, Action, Error, update)
+module Game.Model exposing (Model, Action, Error, create, update)
 
 
 type Player
@@ -24,6 +24,11 @@ type alias Model =
     { rows : List Coin
     , currentPlayer : Player
     }
+
+
+create : List Coin -> Model
+create rows =
+    { rows = rows, currentPlayer = PlayerA }
 
 
 type Action
