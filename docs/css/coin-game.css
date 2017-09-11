@@ -1,4 +1,5 @@
 .game {
+    position: relative;
     background-color: chocolate;
 }
 
@@ -25,4 +26,19 @@
     border-style: solid;
     border-width: 1px;
     border-radius: 25px;
+}
+
+.current-player {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: white;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    padding: 2px;
+}
+
+.current-player.finished {
+    background-color: green;
 }
