@@ -29,3 +29,13 @@ type alias Model =
 create : List Coin -> Model
 create position =
     { position = position, currentPlayer = PlayerA }
+
+
+finished : Model -> Bool
+finished model =
+    List.all isZero model.position
+
+
+isZero : Int -> Bool
+isZero n =
+    n == 0
