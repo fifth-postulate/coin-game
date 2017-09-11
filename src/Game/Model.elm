@@ -21,11 +21,11 @@ type alias Coin =
 
 
 type alias Model =
-    { rows : List Coin
+    { position : List Coin
     , currentPlayer : Player
     }
 
 
 create : List Coin -> Model
-create rows =
-    { rows = rows, currentPlayer = PlayerA }
+create position =
+    { position = position, currentPlayer = PlayerA }

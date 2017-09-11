@@ -21,7 +21,7 @@ update action model =
             if coins <= 0 then
                 Err NonPositiveCoins
             else
-                case model.rows @ row of
+                case model.position @ row of
                     Nothing ->
                         Err NonExistingRow
 
@@ -36,9 +36,9 @@ update action model =
                                 remainingCoins =
                                     coinsInRow - coins
                             in
-                                case replace model.rows row remainingCoins of
-                                    Just nextRows ->
-                                        Ok { model | rows = nextRows, currentPlayer = nextPlayer }
+                                case replace model.position row remainingCoins of
+                                    Just nextPosition ->
+                                        Ok { model | position = nextPosition, currentPlayer = nextPlayer }
 
                                     Nothing ->
                                         Err NonExistingRow

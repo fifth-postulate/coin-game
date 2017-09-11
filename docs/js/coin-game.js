@@ -8262,7 +8262,7 @@ var _elm_lang$html$Html_Events$Options = F2(
 
 var _fifth_postulate$coin_game$Game_Model$Model = F2(
 	function (a, b) {
-		return {rows: a, currentPlayer: b};
+		return {position: a, currentPlayer: b};
 	});
 var _fifth_postulate$coin_game$Game_Model$PlayerB = {ctor: 'PlayerB'};
 var _fifth_postulate$coin_game$Game_Model$PlayerA = {ctor: 'PlayerA'};
@@ -8274,8 +8274,8 @@ var _fifth_postulate$coin_game$Game_Model$other = function (player) {
 		return _fifth_postulate$coin_game$Game_Model$PlayerA;
 	}
 };
-var _fifth_postulate$coin_game$Game_Model$create = function (rows) {
-	return {rows: rows, currentPlayer: _fifth_postulate$coin_game$Game_Model$PlayerA};
+var _fifth_postulate$coin_game$Game_Model$create = function (position) {
+	return {position: position, currentPlayer: _fifth_postulate$coin_game$Game_Model$PlayerA};
 };
 
 var _fifth_postulate$coin_game$Helper$replace = F3(
@@ -8331,7 +8331,7 @@ var _fifth_postulate$coin_game$Game_Update$update = F2(
 		if (_elm_lang$core$Native_Utils.cmp(_p4, 0) < 1) {
 			return _elm_lang$core$Result$Err(_fifth_postulate$coin_game$Game_Update$NonPositiveCoins);
 		} else {
-			var _p1 = A2(_fifth_postulate$coin_game$Helper_ops['@'], model.rows, _p5);
+			var _p1 = A2(_fifth_postulate$coin_game$Helper_ops['@'], model.position, _p5);
 			if (_p1.ctor === 'Nothing') {
 				return _elm_lang$core$Result$Err(_fifth_postulate$coin_game$Game_Update$NonExistingRow);
 			} else {
@@ -8341,12 +8341,12 @@ var _fifth_postulate$coin_game$Game_Update$update = F2(
 				} else {
 					var remainingCoins = _p3 - _p4;
 					var nextPlayer = _fifth_postulate$coin_game$Game_Model$other(model.currentPlayer);
-					var _p2 = A3(_fifth_postulate$coin_game$Helper$replace, model.rows, _p5, remainingCoins);
+					var _p2 = A3(_fifth_postulate$coin_game$Helper$replace, model.position, _p5, remainingCoins);
 					if (_p2.ctor === 'Just') {
 						return _elm_lang$core$Result$Ok(
 							_elm_lang$core$Native_Utils.update(
 								model,
-								{rows: _p2._0, currentPlayer: nextPlayer}));
+								{position: _p2._0, currentPlayer: nextPlayer}));
 					} else {
 						return _elm_lang$core$Result$Err(_fifth_postulate$coin_game$Game_Update$NonExistingRow);
 					}
@@ -8397,7 +8397,7 @@ var _fifth_postulate$coin_game$Game_View$viewRow = F2(
 			htmlCoins);
 	});
 var _fifth_postulate$coin_game$Game_View$view = function (model) {
-	var htmlRows = A2(_elm_lang$core$List$indexedMap, _fifth_postulate$coin_game$Game_View$viewRow, model.rows);
+	var htmlRows = A2(_elm_lang$core$List$indexedMap, _fifth_postulate$coin_game$Game_View$viewRow, model.position);
 	return A2(
 		_elm_lang$html$Html$div,
 		{

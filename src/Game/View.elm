@@ -12,7 +12,7 @@ view : Model -> Html.Html Message
 view model =
     let
         htmlRows =
-            List.indexedMap viewRow model.rows
+            List.indexedMap viewRow model.position
     in
         Html.div [ Attribute.class "game" ] htmlRows
 
