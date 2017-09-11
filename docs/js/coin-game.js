@@ -8260,6 +8260,12 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
+var _fifth_postulate$coin_game$Game_Model$isZero = function (n) {
+	return _elm_lang$core$Native_Utils.eq(n, 0);
+};
+var _fifth_postulate$coin_game$Game_Model$finished = function (model) {
+	return A2(_elm_lang$core$List$all, _fifth_postulate$coin_game$Game_Model$isZero, model.position);
+};
 var _fifth_postulate$coin_game$Game_Model$Model = F2(
 	function (a, b) {
 		return {position: a, currentPlayer: b};
@@ -8410,7 +8416,20 @@ var _fifth_postulate$coin_game$Game_View$view = function (model) {
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('current-player'),
+			_0: _elm_lang$html$Html_Attributes$classList(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'current-player', _1: true},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'finished',
+							_1: _fifth_postulate$coin_game$Game_Model$finished(model)
+						},
+						_1: {ctor: '[]'}
+					}
+				}),
 			_1: {ctor: '[]'}
 		},
 		{

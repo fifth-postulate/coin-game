@@ -20,7 +20,13 @@ view model =
                     "Player B"
 
         htmlPlayer =
-            Html.div [ Attribute.class "current-player" ] [ Html.text player ]
+            Html.div
+                [ Attribute.classList
+                    [ ( "current-player", True )
+                    , ( "finished", GameModel.finished model )
+                    ]
+                ]
+                [ Html.text player ]
 
         htmlPosition =
             List.indexedMap viewRow model.position
