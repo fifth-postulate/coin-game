@@ -18,6 +18,94 @@
             We will analyse the game in order to tell which player will win, and
             how that player should play.
         </p>
+        <h3>Known Positions</h3>
+        <p>
+            We will first analyse some position with great regularity.
+        </p>
+        <h4>One coin per row</h4>
+        <p>
+            When each row had only one coin, the only option a player has is to
+            take a coin from a row. Therefor the number of rows, determines the
+            number of turns that is played. This in turn determines the winner.
+        </p>
+        <p>
+            This proofs the following theorem.
+        </p>
+        <div class="theorem">
+            <p>
+                For a position in which each row has a single coin, the
+                following holds.
+            </p>
+            <ul>
+                <li>
+                    The first player has a winning strategy when the number of
+                    rows is even.
+                </li>
+                <li>
+                    The second player has a winning strategy when the number of
+                    rows is odd.
+                </li>
+            </ul>
+        </div>
+        <p class="caption">
+            An example of a position with a winning strategy for the second player.
+        </p>
+        <div class="container" data-position="1, 1, 1"></div>
+        <h4>One row of coins</h4>
+        <p>
+            When there is only one row of coins and there are at least two
+            coins, the first player has a winning strategy. For she can take all
+            but the last coin, leaving the second player with a losing position.
+        </p>
+        <p>
+            This proofs the following theorem.
+        </p>
+        <div class="theorem">
+            <p>
+                For a position with only one row the following holds.
+            </p>
+            <ul>
+                <li>
+                    If there is only one coin the first player loses.
+                </li>
+                <li>
+                    For any other number of coins the first player has a winning
+                    strategy.
+                </li>
+            </ul>
+        </div>
+        <p class="caption">
+            An example of a position with a winning strategy for the first player.
+        </p>
+        <div class="container" data-position="7"></div>
+        <h3>Two rows</h3>
+        <p>
+            We will spend some time analysing all positions with two rows.
+        </p>
+        <p>
+            We will do this by case analyses. We will designate a position by a
+            sequence of integers. For example the
+            <tt>2,3</tt> position is demontrated below.
+        </p>
+        <div class="container" data-position="2, 3"></div>
+        <h4><tt>1,n</tt></h4>
+        <p>
+            This is a winning position for the first player for she can play to
+            <tt>1</tt>.
+        </p>
+        <h4><tt>n,n</tt></h4>
+        <p>
+            This is a win for the second player. For what ever the first player
+            plays she can either play to <tt>t,t</tt> or she finds herself in
+            <tt>1,n</tt>, which is a winning position for her.
+        </p>
+        <h4><tt>m,n</tt></h4>
+        <p>
+            This is a win for the first player for she can play to <tt>u,u</tt>,
+            where <tt>u</tt> is the minimum of <tt>m</tt> and <tt>n</tt>.
+        </p>
+        <p class="caption">A winning position for the first player.</p>
+        <div class=container data-position="5, 8"></div>
         <script src="js/coin-game.js"></script>
         <script src="js/application.js"></script>
     </body>
