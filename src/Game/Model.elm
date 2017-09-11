@@ -1,4 +1,4 @@
-module Game.Model exposing (Model, create, Player, other)
+module Game.Model exposing (Model, create, Player(..), other)
 
 
 type Player

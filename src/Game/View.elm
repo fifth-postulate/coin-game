@@ -4,17 +4,31 @@ import Html
 import Html.Attributes as Attribute
 import Html.Events as Event
 import Message exposing (Message)
-import Game.Model exposing (Model)
+import Game.Model as GameModel exposing (Model)
 import Game.Update as GameUpdate exposing (Action)
 
 
 view : Model -> Html.Html Message
 view model =
     let
-        htmlRows =
+        player =
+            case model.currentPlayer of
+                GameModel.PlayerA ->
+                    "Player A"
+
+                GameModel.PlayerB ->
+                    "Player B"
+
+        htmlPlayer =
+            Html.div [ Attribute.class "current-player" ] [ Html.text player ]
+
+        htmlPosition =
             List.indexedMap viewRow model.position
+
+        content =
+            htmlPosition ++ [ htmlPlayer ]
     in
-        Html.div [ Attribute.class "game" ] htmlRows
+        Html.div [ Attribute.class "game" ] content
 
 
 viewRow : Int -> Int -> Html.Html Message

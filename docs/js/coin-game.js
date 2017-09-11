@@ -8397,7 +8397,35 @@ var _fifth_postulate$coin_game$Game_View$viewRow = F2(
 			htmlCoins);
 	});
 var _fifth_postulate$coin_game$Game_View$view = function (model) {
-	var htmlRows = A2(_elm_lang$core$List$indexedMap, _fifth_postulate$coin_game$Game_View$viewRow, model.position);
+	var htmlPosition = A2(_elm_lang$core$List$indexedMap, _fifth_postulate$coin_game$Game_View$viewRow, model.position);
+	var player = function () {
+		var _p0 = model.currentPlayer;
+		if (_p0.ctor === 'PlayerA') {
+			return 'Player A';
+		} else {
+			return 'Player B';
+		}
+	}();
+	var htmlPlayer = A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('current-player'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(player),
+			_1: {ctor: '[]'}
+		});
+	var content = A2(
+		_elm_lang$core$Basics_ops['++'],
+		htmlPosition,
+		{
+			ctor: '::',
+			_0: htmlPlayer,
+			_1: {ctor: '[]'}
+		});
 	return A2(
 		_elm_lang$html$Html$div,
 		{
@@ -8405,7 +8433,7 @@ var _fifth_postulate$coin_game$Game_View$view = function (model) {
 			_0: _elm_lang$html$Html_Attributes$class('game'),
 			_1: {ctor: '[]'}
 		},
-		htmlRows);
+		content);
 };
 
 var _fifth_postulate$coin_game$Main$noSideEffect = function (model) {
