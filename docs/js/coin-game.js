@@ -8387,7 +8387,8 @@ var _fifth_postulate$coin_game$Game_View$viewCoin = F2(
 	});
 var _fifth_postulate$coin_game$Game_View$viewRow = F2(
 	function (row, coinsInRow) {
-		var coins = A2(_elm_lang$core$List$range, 1, coinsInRow);
+		var coins = _elm_lang$core$List$reverse(
+			A2(_elm_lang$core$List$range, 1, coinsInRow));
 		var htmlCoins = A2(
 			_elm_lang$core$List$map,
 			_fifth_postulate$coin_game$Game_View$viewCoin(

@@ -41,7 +41,7 @@ viewRow : Int -> Int -> Html.Html Message
 viewRow row coinsInRow =
     let
         coins =
-            List.range 1 coinsInRow
+            List.reverse (List.range 1 coinsInRow)
 
         htmlCoins =
             List.map (viewCoin (GameUpdate.Play row)) coins
