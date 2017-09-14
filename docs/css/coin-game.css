@@ -5,6 +5,19 @@ body {
     margin-right: auto;
 }
 
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+h2 {
+    margin-top: -1ex;
+    margin-bottom: 1ex;
+}
+
+p {
+    margin-top: 0;
+}
+
 .game {
     position: relative;
     background-color: chocolate;
