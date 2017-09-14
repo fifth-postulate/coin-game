@@ -1,5 +1,8 @@
 body {
     font-family: 'Gloria Hallelujah', cursive;
+    width: 640px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .game {
