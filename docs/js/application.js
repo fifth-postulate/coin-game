@@ -8,6 +8,10 @@
             position = parseList(position);
             app.ports.reset.send(position);
         }
+        var gameType = container.dataset.type;
+        if (gameType) {
+            app.ports.changeType.send(gameType);
+        }
     });
 
     function parseList(input){
