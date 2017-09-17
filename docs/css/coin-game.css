@@ -59,6 +59,23 @@ p {
     padding: 2px;
 }
 
-.current-player.finished {
+.current-player.finished.won {
     background-color: green;
+}
+
+.current-player.finished.lost {
+    background-color: red;
+}
+
+.current-player.misere::before {
+    padding-left: 3px;
+    padding-right: 5px;
+}
+
+.current-player.misere::before {
+    content: "☹"
+}
+
+.current-player.normal::before {
+    content: "☺"
 }
