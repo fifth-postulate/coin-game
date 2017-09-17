@@ -1,4 +1,4 @@
-module Helper exposing ((@), replace)
+module Helper exposing ((@), replace, pad)
 
 
 (@) : List a -> Int -> Maybe a
@@ -25,3 +25,17 @@ replace list index element =
             )
     else
         Nothing
+
+
+pad : List a -> Int -> a -> List a
+pad list desiredSize padding =
+    let
+        n =
+            List.length list
+    in
+        if n <= desiredSize then
+            list
+        else
+            padding
+                |> List.repeat (n - desiredSize)
+                |> List.append list
