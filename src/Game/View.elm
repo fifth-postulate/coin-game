@@ -19,10 +19,19 @@ view model =
                 GameModel.PlayerB ->
                     "Player B"
 
+        gameType =
+            case model.gameType of
+                GameModel.Normal ->
+                    "normal"
+
+                GameModel.Misere ->
+                    "misere"
+
         htmlPlayer =
             Html.div
                 [ Attribute.classList
                     [ ( "current-player", True )
+                    , ( gameType, True )
                     , ( "finished", GameModel.finished model )
                     ]
                 ]

@@ -8419,9 +8419,17 @@ var _fifth_postulate$coin_game$Game_View$viewRow = F2(
 	});
 var _fifth_postulate$coin_game$Game_View$view = function (model) {
 	var htmlPosition = A2(_elm_lang$core$List$indexedMap, _fifth_postulate$coin_game$Game_View$viewRow, model.position);
+	var gameType = function () {
+		var _p0 = model.gameType;
+		if (_p0.ctor === 'Normal') {
+			return 'normal';
+		} else {
+			return 'misere';
+		}
+	}();
 	var player = function () {
-		var _p0 = model.currentPlayer;
-		if (_p0.ctor === 'PlayerA') {
+		var _p1 = model.currentPlayer;
+		if (_p1.ctor === 'PlayerA') {
 			return 'Player A';
 		} else {
 			return 'Player B';
@@ -8437,12 +8445,16 @@ var _fifth_postulate$coin_game$Game_View$view = function (model) {
 					_0: {ctor: '_Tuple2', _0: 'current-player', _1: true},
 					_1: {
 						ctor: '::',
-						_0: {
-							ctor: '_Tuple2',
-							_0: 'finished',
-							_1: _fifth_postulate$coin_game$Game_Model$finished(model)
-						},
-						_1: {ctor: '[]'}
+						_0: {ctor: '_Tuple2', _0: gameType, _1: true},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'finished',
+								_1: _fifth_postulate$coin_game$Game_Model$finished(model)
+							},
+							_1: {ctor: '[]'}
+						}
 					}
 				}),
 			_1: {ctor: '[]'}
