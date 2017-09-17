@@ -27,12 +27,20 @@ view model =
                 GameModel.Misere ->
                     "misere"
 
+        finished =
+            GameModel.finished model
+
+        won =
+            finished && model.gameType == GameModel.Misere
+
         htmlPlayer =
             Html.div
                 [ Attribute.classList
                     [ ( "current-player", True )
                     , ( gameType, True )
-                    , ( "finished", GameModel.finished model )
+                    , ( "finished", finished )
+                    , ( "won", won )
+                    , ( "lost", not won )
                     ]
                 ]
                 [ Html.text player ]
