@@ -27,6 +27,14 @@ view model =
                 GameModel.Misere ->
                     "misere"
 
+        changeTo =
+            case model.gameType of
+                GameModel.Normal ->
+                    "misere"
+
+                GameModel.Misere ->
+                    "normal"
+
         finished =
             GameModel.finished model
 
@@ -42,6 +50,7 @@ view model =
                     , ( "won", won )
                     , ( "lost", not won )
                     ]
+                , Event.onClick (Message.Type changeTo)
                 ]
                 [ Html.text player ]
 

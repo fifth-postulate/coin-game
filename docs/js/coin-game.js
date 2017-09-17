@@ -8421,17 +8421,25 @@ var _fifth_postulate$coin_game$Game_View$view = function (model) {
 	var htmlPosition = A2(_elm_lang$core$List$indexedMap, _fifth_postulate$coin_game$Game_View$viewRow, model.position);
 	var finished = _fifth_postulate$coin_game$Game_Model$finished(model);
 	var won = finished && _elm_lang$core$Native_Utils.eq(model.gameType, _fifth_postulate$coin_game$Game_Model$Misere);
-	var gameType = function () {
+	var changeTo = function () {
 		var _p0 = model.gameType;
 		if (_p0.ctor === 'Normal') {
+			return 'misere';
+		} else {
+			return 'normal';
+		}
+	}();
+	var gameType = function () {
+		var _p1 = model.gameType;
+		if (_p1.ctor === 'Normal') {
 			return 'normal';
 		} else {
 			return 'misere';
 		}
 	}();
 	var player = function () {
-		var _p1 = model.currentPlayer;
-		if (_p1.ctor === 'PlayerA') {
+		var _p2 = model.currentPlayer;
+		if (_p2.ctor === 'PlayerA') {
 			return 'Player A';
 		} else {
 			return 'Player B';
@@ -8463,7 +8471,12 @@ var _fifth_postulate$coin_game$Game_View$view = function (model) {
 						}
 					}
 				}),
-			_1: {ctor: '[]'}
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_fifth_postulate$coin_game$Message$Type(changeTo)),
+				_1: {ctor: '[]'}
+			}
 		},
 		{
 			ctor: '::',
