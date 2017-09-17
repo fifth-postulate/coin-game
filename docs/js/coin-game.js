@@ -8266,9 +8266,9 @@ var _fifth_postulate$coin_game$Game_Model$isZero = function (n) {
 var _fifth_postulate$coin_game$Game_Model$finished = function (model) {
 	return A2(_elm_lang$core$List$all, _fifth_postulate$coin_game$Game_Model$isZero, model.position);
 };
-var _fifth_postulate$coin_game$Game_Model$Model = F2(
-	function (a, b) {
-		return {position: a, currentPlayer: b};
+var _fifth_postulate$coin_game$Game_Model$Model = F3(
+	function (a, b, c) {
+		return {position: a, currentPlayer: b, gameType: c};
 	});
 var _fifth_postulate$coin_game$Game_Model$PlayerB = {ctor: 'PlayerB'};
 var _fifth_postulate$coin_game$Game_Model$PlayerA = {ctor: 'PlayerA'};
@@ -8280,10 +8280,21 @@ var _fifth_postulate$coin_game$Game_Model$other = function (player) {
 		return _fifth_postulate$coin_game$Game_Model$PlayerA;
 	}
 };
-var _fifth_postulate$coin_game$Game_Model$create = function (position) {
-	return {position: position, currentPlayer: _fifth_postulate$coin_game$Game_Model$PlayerA};
-};
+var _fifth_postulate$coin_game$Game_Model$create = F2(
+	function (position, gameType) {
+		return {position: position, currentPlayer: _fifth_postulate$coin_game$Game_Model$PlayerA, gameType: gameType};
+	});
+var _fifth_postulate$coin_game$Game_Model$Misere = {ctor: 'Misere'};
+var _fifth_postulate$coin_game$Game_Model$Normal = {ctor: 'Normal'};
 
+var _fifth_postulate$coin_game$Helper$pad = F3(
+	function (list, desiredSize, padding) {
+		var n = _elm_lang$core$List$length(list);
+		return (_elm_lang$core$Native_Utils.cmp(n, desiredSize) < 1) ? list : A2(
+			_elm_lang$core$List$append,
+			list,
+			A2(_elm_lang$core$List$repeat, n - desiredSize, padding));
+	});
 var _fifth_postulate$coin_game$Helper$replace = F3(
 	function (list, index, element) {
 		return ((_elm_lang$core$Native_Utils.cmp(0, index) < 1) && (_elm_lang$core$Native_Utils.cmp(
@@ -8361,6 +8372,9 @@ var _fifth_postulate$coin_game$Game_Update$update = F2(
 		}
 	});
 
+var _fifth_postulate$coin_game$Message$Type = function (a) {
+	return {ctor: 'Type', _0: a};
+};
 var _fifth_postulate$coin_game$Message$Reset = function (a) {
 	return {ctor: 'Reset', _0: a};
 };
@@ -8459,45 +8473,70 @@ var _fifth_postulate$coin_game$Game_View$view = function (model) {
 var _fifth_postulate$coin_game$Main$noSideEffect = function (model) {
 	return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 };
-var _fifth_postulate$coin_game$Main$init = function (coins) {
-	return _fifth_postulate$coin_game$Main$noSideEffect(
-		{
-			game: _fifth_postulate$coin_game$Game_Model$create(coins),
-			error: _elm_lang$core$Maybe$Nothing
-		});
-};
+var _fifth_postulate$coin_game$Main$init = F2(
+	function (position, gameType) {
+		return _fifth_postulate$coin_game$Main$noSideEffect(
+			{
+				game: A2(_fifth_postulate$coin_game$Game_Model$create, position, gameType),
+				gameType: gameType,
+				error: _elm_lang$core$Maybe$Nothing
+			});
+	});
 var _fifth_postulate$coin_game$Main$update = F2(
 	function (message, model) {
 		var _p0 = message;
-		if (_p0.ctor === 'Play') {
-			var result = A2(_fifth_postulate$coin_game$Game_Update$update, _p0._0, model.game);
-			var _p1 = result;
-			if (_p1.ctor === 'Ok') {
-				return _fifth_postulate$coin_game$Main$noSideEffect(
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{game: _p1._0, error: _elm_lang$core$Maybe$Nothing}));
-			} else {
-				return _fifth_postulate$coin_game$Main$noSideEffect(
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{
-							error: _elm_lang$core$Maybe$Just(_p1._0)
-						}));
-			}
-		} else {
-			return _fifth_postulate$coin_game$Main$init(_p0._0);
+		switch (_p0.ctor) {
+			case 'Play':
+				var result = A2(_fifth_postulate$coin_game$Game_Update$update, _p0._0, model.game);
+				var _p1 = result;
+				if (_p1.ctor === 'Ok') {
+					return _fifth_postulate$coin_game$Main$noSideEffect(
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{game: _p1._0, error: _elm_lang$core$Maybe$Nothing}));
+				} else {
+					return _fifth_postulate$coin_game$Main$noSideEffect(
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{
+								error: _elm_lang$core$Maybe$Just(_p1._0)
+							}));
+				}
+			case 'Reset':
+				return A2(_fifth_postulate$coin_game$Main$init, _p0._0, model.gameType);
+			default:
+				var position = model.game.position;
+				var gameType = function () {
+					var _p2 = _elm_lang$core$String$toLower(_p0._0);
+					if (_p2 === 'misere') {
+						return _fifth_postulate$coin_game$Game_Model$Misere;
+					} else {
+						return _fifth_postulate$coin_game$Game_Model$Normal;
+					}
+				}();
+				return A2(_fifth_postulate$coin_game$Main$init, position, gameType);
 		}
 	});
 var _fifth_postulate$coin_game$Main$reset = _elm_lang$core$Native_Platform.incomingPort(
 	'reset',
 	_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$int));
-var _fifth_postulate$coin_game$Main$subscriptions = function (_p2) {
-	return _fifth_postulate$coin_game$Main$reset(_fifth_postulate$coin_game$Message$Reset);
+var _fifth_postulate$coin_game$Main$changeType = _elm_lang$core$Native_Platform.incomingPort('changeType', _elm_lang$core$Json_Decode$string);
+var _fifth_postulate$coin_game$Main$subscriptions = function (_p3) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: _fifth_postulate$coin_game$Main$reset(_fifth_postulate$coin_game$Message$Reset),
+			_1: {
+				ctor: '::',
+				_0: _fifth_postulate$coin_game$Main$changeType(_fifth_postulate$coin_game$Message$Type),
+				_1: {ctor: '[]'}
+			}
+		});
 };
 var _fifth_postulate$coin_game$Main$main = _elm_lang$html$Html$program(
 	{
-		init: _fifth_postulate$coin_game$Main$init(
+		init: A2(
+			_fifth_postulate$coin_game$Main$init,
 			{
 				ctor: '::',
 				_0: 2,
@@ -8510,19 +8549,20 @@ var _fifth_postulate$coin_game$Main$main = _elm_lang$html$Html$program(
 						_1: {ctor: '[]'}
 					}
 				}
-			}),
-		view: function (_p3) {
+			},
+			_fifth_postulate$coin_game$Game_Model$Misere),
+		view: function (_p4) {
 			return _fifth_postulate$coin_game$Game_View$view(
 				function (_) {
 					return _.game;
-				}(_p3));
+				}(_p4));
 		},
 		update: _fifth_postulate$coin_game$Main$update,
 		subscriptions: _fifth_postulate$coin_game$Main$subscriptions
 	})();
-var _fifth_postulate$coin_game$Main$Model = F2(
-	function (a, b) {
-		return {game: a, error: b};
+var _fifth_postulate$coin_game$Main$Model = F3(
+	function (a, b, c) {
+		return {game: a, gameType: b, error: c};
 	});
 
 var Elm = {};

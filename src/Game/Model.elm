@@ -1,4 +1,4 @@
-module Game.Model exposing (Model, create, Player(..), other, finished)
+module Game.Model exposing (Model, create, Player(..), other, finished, GameType(..))
 
 
 type Player
@@ -16,6 +16,11 @@ other player =
             PlayerA
 
 
+type GameType
+    = Normal
+    | Misere
+
+
 type alias Coin =
     Int
 
@@ -23,12 +28,13 @@ type alias Coin =
 type alias Model =
     { position : List Coin
     , currentPlayer : Player
+    , gameType: GameType
     }
 
 
-create : List Coin -> Model
-create position =
-    { position = position, currentPlayer = PlayerA }
+create : List Coin -> GameType -> Model
+create position gameType =
+    { position = position, currentPlayer = PlayerA, gameType = gameType }
 
 
 finished : Model -> Bool
