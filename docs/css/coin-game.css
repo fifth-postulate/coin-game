@@ -67,7 +67,7 @@ p {
     background-color: red;
 }
 
-.current-player.misere::before {
+.current-player::before {
     padding-left: 3px;
     padding-right: 5px;
 }
